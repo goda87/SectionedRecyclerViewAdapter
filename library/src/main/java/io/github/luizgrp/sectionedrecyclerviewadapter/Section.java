@@ -10,6 +10,7 @@ import android.view.ViewGroup;
  * Abstract Section used by SectionedRecyclerViewAdapter.
  *
  * @author Gustavo Pagani
+ * @author goda87
  */
 public abstract class Section {
 
@@ -38,9 +39,7 @@ public abstract class Section {
      */
     public Section(@LayoutRes int itemResourceId,
                    @LayoutRes Integer loadingResourceId, @LayoutRes Integer failedResourceId) {
-        this.itemResourceId = itemResourceId;
-        this.loadingResourceId = loadingResourceId;
-        this.failedResourceId = failedResourceId;
+        this(null, null, itemResourceId, loadingResourceId, failedResourceId);
     }
 
     /**
@@ -50,11 +49,9 @@ public abstract class Section {
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
      */
-    public Section(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId,
+    public Section(@LayoutRes int headerResourceId, @LayoutRes Integer itemResourceId,
                    @LayoutRes Integer loadingResourceId, @LayoutRes Integer failedResourceId) {
-        this(itemResourceId, loadingResourceId, failedResourceId);
-        this.headerResourceId = headerResourceId;
-        hasHeader = true;
+        this(headerResourceId, null, itemResourceId, loadingResourceId, failedResourceId);
     }
 
     /**
@@ -65,12 +62,16 @@ public abstract class Section {
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
      */
-    public Section(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
+    public Section(@LayoutRes Integer headerResourceId, @LayoutRes Integer footerResourceId,
                    @LayoutRes int itemResourceId,
                    @LayoutRes Integer loadingResourceId, @LayoutRes Integer failedResourceId) {
-        this(headerResourceId, itemResourceId, loadingResourceId, failedResourceId);
+        this.itemResourceId = itemResourceId;
+        this.loadingResourceId = loadingResourceId;
+        this.failedResourceId = failedResourceId;
+        this.headerResourceId = headerResourceId;
+        this.hasHeader = headerResourceId != null;
         this.footerResourceId = footerResourceId;
-        hasFooter = true;
+        this.hasFooter = footerResourceId != null;
     }
 
     protected View getInflatedItemView(ViewGroup root) {

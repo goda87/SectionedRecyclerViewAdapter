@@ -8,6 +8,7 @@ import android.view.View;
  * Abstract Section with no States.
  *
  * @author Gustavo Pagani
+ * @author goda87
  */
 public abstract class StatelessSection extends Section {
 

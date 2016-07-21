@@ -15,6 +15,7 @@ import java.util.UUID;
  * Sections are displayed in the same order they were added.
  *
  * @author Gustavo Pagani
+ * @author goda87
  */
 public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
