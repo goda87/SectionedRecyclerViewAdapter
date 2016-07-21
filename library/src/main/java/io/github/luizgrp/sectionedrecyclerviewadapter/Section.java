@@ -20,8 +20,8 @@ public abstract class Section {
 
     private boolean visible = true;
 
-    boolean hasHeader = false;
-    boolean hasFooter = false;
+    private boolean hasHeader = false;
+    private boolean hasFooter = false;
 
     private Integer headerResourceId;
     private Integer footerResourceId;
@@ -74,8 +74,28 @@ public abstract class Section {
         this.hasFooter = footerResourceId != null;
     }
 
-    protected View getInflatedItemView(ViewGroup root) {
-        return LayoutInflater.from(root.getContext()).inflate(this.getItemResourceId(), root, false);
+    public View getInflatedItemView(ViewGroup root) {
+        return LayoutInflater.from(root.getContext()).inflate(itemResourceId, root, false);
+    }
+
+    public View getInflatedLoadingView(ViewGroup root) {
+        if (loadingResourceId == null) { throw new NullPointerException("Missing 'loading state' resource id"); }
+        return LayoutInflater.from(root.getContext()).inflate(loadingResourceId, root, false);
+    }
+
+    public View getInflatedFailedView(ViewGroup root) {
+        if (failedResourceId == null) { throw new NullPointerException("Missing 'failed state' resource id"); }
+        return LayoutInflater.from(root.getContext()).inflate(failedResourceId, root, false);
+    }
+
+    public View getInflatedHeaderView(ViewGroup root) {
+        if (headerResourceId == null) { throw new NullPointerException("Missing 'header' resource id"); }
+        return LayoutInflater.from(root.getContext()).inflate(headerResourceId, root, false);
+    }
+
+    public View getInflatedFooterView(ViewGroup root) {
+        if (footerResourceId == null) { throw new NullPointerException("Missing 'footer' resource id"); }
+        return LayoutInflater.from(root.getContext()).inflate(footerResourceId, root, false);
     }
 
     /**
@@ -140,46 +160,6 @@ public abstract class Section {
      */
     public final void setHasFooter(boolean hasFooter) {
         this.hasFooter = hasFooter;
-    }
-
-    /**
-     * Return the layout resource id of the header
-     * @return layout resource id of the header
-     */
-    public final Integer getHeaderResourceId() {
-        return headerResourceId;
-    }
-
-    /**
-     * Return the layout resource id of the footer
-     * @return layout resource id of the footer
-     */
-    public final Integer getFooterResourceId() {
-        return footerResourceId;
-    }
-
-    /**
-     * Return the layout resource id of the item
-     * @return layout resource id of the item
-     */
-    public final int getItemResourceId() {
-        return itemResourceId;
-    }
-
-    /**
-     * Return the layout resource id of the loading view
-     * @return layout resource id of the loading view
-     */
-    public final Integer getLoadingResourceId() {
-        return loadingResourceId;
-    }
-
-    /**
-     * Return the layout resource id of the failed view
-     * @return layout resource id of the failed view
-     */
-    public final Integer getFailedResourceId() {
-        return failedResourceId;
     }
 
     /**
