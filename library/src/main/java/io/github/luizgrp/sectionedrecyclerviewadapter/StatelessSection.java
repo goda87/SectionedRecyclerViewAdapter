@@ -1,5 +1,6 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -14,9 +15,8 @@ public abstract class StatelessSection extends Section {
      * Create a Section object with loading/failed states but no header and footer
      * @param itemResourceId layout resource for its items
      */
-    public StatelessSection(int itemResourceId) {
-        super();
-        this.itemResourceId = itemResourceId;
+    public StatelessSection(@LayoutRes int itemResourceId) {
+        super(itemResourceId, null, null);
     }
 
     /**
@@ -24,10 +24,8 @@ public abstract class StatelessSection extends Section {
      * @param headerResourceId layout resource for its header
      * @param itemResourceId layout resource for its items
      */
-    public StatelessSection(int headerResourceId, int itemResourceId) {
-        this(itemResourceId);
-        this.headerResourceId = headerResourceId;
-        this.hasHeader = true;
+    public StatelessSection(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId) {
+        super(headerResourceId, itemResourceId, null, null);
     }
 
     /**
@@ -36,10 +34,9 @@ public abstract class StatelessSection extends Section {
      * @param footerResourceId layout resource for its footer
      * @param itemResourceId layout resource for its items
      */
-    public StatelessSection(int headerResourceId, int footerResourceId, int itemResourceId) {
-        this(headerResourceId, itemResourceId);
-        this.footerResourceId = footerResourceId;
-        this.hasFooter = true;
+    public StatelessSection(@LayoutRes int headerResourceId,
+                            @LayoutRes int footerResourceId, @LayoutRes int itemResourceId) {
+        super(headerResourceId, footerResourceId, itemResourceId, null, null);
     }
 
     @Override

@@ -1,7 +1,10 @@
 package io.github.luizgrp.sectionedrecyclerviewadapter;
 
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Abstract Section used by SectionedRecyclerViewAdapter.
@@ -14,25 +17,18 @@ public abstract class Section {
 
     private State state = State.LOADED;
 
-    boolean visible = true;
+    private boolean visible = true;
 
     boolean hasHeader = false;
     boolean hasFooter = false;
 
-    Integer headerResourceId;
-    Integer footerResourceId;
+    private Integer headerResourceId;
+    private Integer footerResourceId;
 
-    int itemResourceId;
+    private int itemResourceId;
 
     private Integer loadingResourceId;
     private Integer failedResourceId;
-
-    /**
-     * Package-level constructor
-     */
-    Section() {
-
-    }
 
     /**
      * Create a Section object with loading/failed states but no header and footer
@@ -40,7 +36,8 @@ public abstract class Section {
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
      */
-    public Section(int itemResourceId, int loadingResourceId, int failedResourceId) {
+    public Section(@LayoutRes int itemResourceId,
+                   @LayoutRes Integer loadingResourceId, @LayoutRes Integer failedResourceId) {
         this.itemResourceId = itemResourceId;
         this.loadingResourceId = loadingResourceId;
         this.failedResourceId = failedResourceId;
@@ -53,7 +50,8 @@ public abstract class Section {
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
      */
-    public Section(int headerResourceId, int itemResourceId, int loadingResourceId, int failedResourceId) {
+    public Section(@LayoutRes int headerResourceId, @LayoutRes int itemResourceId,
+                   @LayoutRes Integer loadingResourceId, @LayoutRes Integer failedResourceId) {
         this(itemResourceId, loadingResourceId, failedResourceId);
         this.headerResourceId = headerResourceId;
         hasHeader = true;
@@ -67,10 +65,16 @@ public abstract class Section {
      * @param loadingResourceId layout resource for its loading state
      * @param failedResourceId layout resource for its failed state
      */
-    public Section(int headerResourceId, int footerResourceId, int itemResourceId, int loadingResourceId, int failedResourceId) {
+    public Section(@LayoutRes int headerResourceId, @LayoutRes int footerResourceId,
+                   @LayoutRes int itemResourceId,
+                   @LayoutRes Integer loadingResourceId, @LayoutRes Integer failedResourceId) {
         this(headerResourceId, itemResourceId, loadingResourceId, failedResourceId);
         this.footerResourceId = footerResourceId;
         hasFooter = true;
+    }
+
+    protected View getInflatedItemView(ViewGroup root) {
+        return LayoutInflater.from(root.getContext()).inflate(this.getItemResourceId(), root, false);
     }
 
     /**

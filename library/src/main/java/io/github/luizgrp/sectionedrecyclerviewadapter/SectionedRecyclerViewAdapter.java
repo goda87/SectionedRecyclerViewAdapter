@@ -69,7 +69,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         break;
                     }
                     case VIEW_TYPE_ITEM_LOADED: {
-                        view = LayoutInflater.from(parent.getContext()).inflate(section.getItemResourceId(), parent, false);
+                        view = section.getInflatedItemView(parent);
                         // get the item viewholder from the section
                         viewHolder = section.getItemViewHolder(view);
                         break;
